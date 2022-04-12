@@ -44,7 +44,7 @@ function initBattle() {
 
       if (draggle.health <= 0) {
         queue.push(() => {
-          draggle.faint()
+          draggle.voltou()
         })
         queue.push(() => {
           // fade back to black

@@ -1,3 +1,6 @@
+let atknam1 = "D.R.";
+let atknam2 = "Orar";
+
 class Sprite {
   constructor({
     position,
@@ -91,7 +94,19 @@ class Monster extends Sprite {
   }
 
   faint() {
-    document.querySelector('#dialogueBox').innerHTML = this.name + ' fainted!'
+    document.querySelector('#dialogueBox').innerHTML = this.name + ' perdeu!'
+    gsap.to(this.position, {
+      y: this.position.y + 20
+    })
+    gsap.to(this, {
+      opacity: 0
+    })
+    audio.battle.stop()
+    audio.victory.play()
+  }
+
+  voltou() {
+    document.querySelector('#dialogueBox').innerHTML = this.name + ' voltou!'
     gsap.to(this.position, {
       y: this.position.y + 20
     })
@@ -104,8 +119,19 @@ class Monster extends Sprite {
 
   attack({ attack, recipient, renderedSprites }) {
     document.querySelector('#dialogueBox').style.display = 'block'
-    document.querySelector('#dialogueBox').innerHTML =
-      this.name + ' used ' + attack.name
+   if(this.name == "Murilo"){
+     if(attack.name == "Tackle"){
+       document.querySelector('#dialogueBox').innerHTML = this.name + ' usou ' + atknam1
+     }else{
+       document.querySelector('#dialogueBox').innerHTML = this.name + ' usou ' + atknam2
+     }
+   }else{
+     if(attack.name == "Tackle"){
+       document.querySelector('#dialogueBox').innerHTML = 'WebMel usou ' + atknam1
+     }else{
+       document.querySelector('#dialogueBox').innerHTML = ' WebMel usou ' + atknam2
+     }
+   }
 
     let healthBar = '#enemyHealthBar'
     if (this.isEnemy) healthBar = '#playerHealthBar'
